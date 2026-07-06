@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Proxy Detail - OpenAI-Premium-HK | ProxySentinel AI</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Heartbeat Animation */
+        @keyframes heartbeat {
+            0% { opacity: 0.4; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.4; transform: scale(0.8); }
+        }
+        .animate-heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar for Industrial Look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.background');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            border-radius: 0px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
+    </style>
+<!-- Tailwind Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#5b5e66",
+                    "surface-variant": "#353435",
+                    "on-tertiary-fixed": "#07006c",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-tertiary-container": "#686cf7",
+                    "inverse-surface": "#e5e2e2",
+                    "on-secondary-fixed": "#002113",
+                    "on-surface-variant": "#c6c6cb",
+                    "tertiary-fixed": "#e1e0ff",
+                    "on-primary-container": "#797d85",
+                    "surface-container-lowest": "#0e0e0f",
+                    "primary-container": "#0d1117",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "surface-container-high": "#2a2a2a",
+                    "on-secondary-container": "#00311f",
+                    "error-container": "#93000a",
+                    "surface-container-highest": "#353435",
+                    "error": "#ffb4ab",
+                    "primary-fixed": "#dfe2eb",
+                    "on-tertiary": "#1000a9",
+                    "surface-container": "#201f20",
+                    "background": "#131314",
+                    "on-surface": "#e5e2e2",
+                    "surface-bright": "#3a3939",
+                    "surface-container-low": "#1c1b1c",
+                    "primary": "#c3c6cf",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-background": "#e5e2e2",
+                    "primary-fixed-dim": "#c3c6cf",
+                    "on-primary": "#2d3137",
+                    "on-primary-fixed-variant": "#43474e",
+                    "outline-variant": "#45474b",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-tint": "#c3c6cf",
+                    "outline": "#8f9095",
+                    "on-primary-fixed": "#181c22",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "surface-dim": "#131314",
+                    "secondary-container": "#00a572",
+                    "tertiary": "#c0c1ff",
+                    "tertiary-container": "#03004c",
+                    "on-error": "#690005",
+                    "surface": "#131314",
+                    "inverse-on-surface": "#313031",
+                    "secondary": "#4edea3",
+                    "on-secondary": "#003824"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "16px",
+                    "density-compact": "4px",
+                    "container-padding": "24px",
+                    "sidebar-width": "240px",
+                    "density-comfortable": "12px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "mono-data": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "mono-data": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "label-caps": ["11px", {"lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex overflow-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-background border-b border-outline-variant dark:border-outline-variant">
+<div class="flex items-center gap-6">
+<div class="font-display-lg text-display-lg font-bold text-secondary dark:text-secondary tracking-tight">
+                ProxySentinel AI
+            </div>
+<nav class="hidden md:flex items-center gap-4 ml-8">
+<!-- Highlight none perfectly since it's a detail view, fallback to Nodes logic if needed, but keeping neutral based on shared component instructions -->
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-DEFAULT cursor-pointer active:scale-95 font-headline-md text-headline-md text-sm" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-DEFAULT cursor-pointer active:scale-95 font-headline-md text-headline-md text-sm" href="#">Logs</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-DEFAULT cursor-pointer active:scale-95 font-headline-md text-headline-md text-sm" href="#">Nodes</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-colors duration-200 px-3 py-2 rounded-DEFAULT cursor-pointer active:scale-95 font-headline-md text-headline-md text-sm" href="#">Config</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-low border border-outline-variant rounded-DEFAULT py-1.5 pl-9 pr-3 text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary w-64 transition-all" placeholder="Search resources..." type="text"/>
+</div>
+<button class="bg-tertiary text-on-tertiary font-headline-md text-sm px-4 py-1.5 rounded-DEFAULT hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">play_arrow</span> Run Scan
+            </button>
+<div class="flex items-center gap-2 border-l border-outline-variant pl-4 ml-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors"><span class="material-symbols-outlined">settings</span></button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors"><span class="material-symbols-outlined">notifications_active</span></button>
+<img alt="SRE Admin Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover ml-2" data-alt="A highly detailed close-up portrait of a professional DevOps engineer or SRE admin. The environment is a dimly lit, high-tech server room with subtle blue and green LED lights reflecting in the background. The mood is focused and technical, aligning with a modern, dark-themed dashboard interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWUQt1sIkGDgKp8GpSlb9Pm8jBkKahwTPQxXxwmrPjCeECAFY8_BGNhF1h517GOeXgV2RUfjdkTgU3u0d7UJ-375qNq2mB5kKivKf7hoVM74burMXw8CBHdJ8XKm8dL6u1aA6Ujvjj1gPpDSzHWnS0zFuwXKqzal0YYLJ2IfTIrupKNvuUOVvqEde97u-scanQunB3Nw7baQW3A1P3sGlvXXCje_GXORzqma8t-u-URIA33rTkLxKFbr-91o4ymlrx2cOnSsSjnos"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-sidebar-width z-40 flex flex-col py-4 bg-surface-container-lowest dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline-variant hidden md:flex">
+<div class="px-6 mb-6">
+<div class="flex items-center gap-3 mb-1">
+<div class="relative">
+<span class="material-symbols-outlined text-secondary icon-fill">monitor_heart</span>
+<div class="absolute -top-1 -right-1 w-2 h-2 bg-secondary rounded-full animate-heartbeat"></div>
+</div>
+<h2 class="font-headline-md text-headline-md text-secondary">Core Engine</h2>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant ml-8">V2.4.0 Active</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container rounded-lg" href="#">
+<span class="material-symbols-outlined icon-fill">router</span>
+<span class="font-label-caps text-label-caps">Proxies</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Analyzers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">timer</span>
+<span class="font-label-caps text-label-caps">Scheduler</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto space-y-4">
+<button class="w-full bg-surface-container-high text-on-surface border border-outline-variant font-label-caps text-label-caps py-2 rounded-DEFAULT flex items-center justify-center gap-2 hover:border-tertiary transition-colors">
+<span class="material-symbols-outlined text-sm">add</span> New Instance
+            </button>
+<div class="border-t border-outline-variant pt-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+<span class="font-label-caps text-label-caps">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-0 md:ml-sidebar-width mt-16 p-container-padding flex-1 overflow-y-auto w-full">
+<!-- Header Module -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-outline-variant pb-6 mb-6">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<div class="w-3 h-3 bg-secondary rounded-full animate-heartbeat shadow-[0_0_8px_rgba(78,222,163,0.6)]"></div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary tracking-tight">OpenAI-Premium-HK</h1>
+</div>
+<div class="flex flex-wrap items-center gap-4 font-mono-data text-mono-data text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">link</span>
+<span class="text-primary">https://hk-edge-01.api.openai.com/v1</span>
+</div>
+<div class="w-1 h-1 bg-outline rounded-full"></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+<span>Model: GPT-4</span>
+</div>
+</div>
+</div>
+<div class="mt-4 md:mt-0 flex items-center gap-3">
+<!-- API Key Status Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant">
+<span class="material-symbols-outlined text-[14px] text-tertiary">key</span>
+<span class="font-label-caps text-label-caps text-on-surface">API Key Saved</span>
+</div>
+<!-- Health Status Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container border border-secondary border-opacity-30">
+<span class="material-symbols-outlined text-[14px] text-on-secondary-container icon-fill">check_circle</span>
+<span class="font-label-caps text-label-caps text-on-secondary-container">Stable</span>
+</div>
+<button class="ml-2 p-2 bg-surface-container-low border border-outline-variant rounded-DEFAULT hover:bg-surface-container-high transition-colors text-on-surface">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Stats Row -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-density-comfortable mb-8">
+<!-- Stat Card 1 -->
+<div class="bg-primary-container border border-outline-variant rounded-lg p-4 relative overflow-hidden group hover:border-outline transition-colors">
+<div class="absolute right-0 bottom-0 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[80px] -mr-4 -mb-4">percent</span>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Success Rate</div>
+<div class="font-headline-md text-[24px] font-bold text-secondary">99.8%</div>
+<div class="font-mono-data text-[11px] text-on-surface-variant mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-secondary">trending_up</span> +0.2% vs last hr
+                </div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-primary-container border border-outline-variant rounded-lg p-4 relative overflow-hidden group hover:border-outline transition-colors">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Avg Latency</div>
+<div class="font-headline-md text-[24px] font-bold text-primary">450<span class="text-[14px] text-on-surface-variant ml-1">ms</span></div>
+<!-- Micro-sparkline simulation -->
+<div class="mt-3 flex items-end h-4 gap-[2px]">
+<div class="w-full bg-tertiary h-[40%] opacity-50"></div>
+<div class="w-full bg-tertiary h-[60%] opacity-50"></div>
+<div class="w-full bg-tertiary h-[30%] opacity-50"></div>
+<div class="w-full bg-tertiary h-[50%] opacity-50"></div>
+<div class="w-full bg-tertiary h-[80%] opacity-50"></div>
+<div class="w-full bg-tertiary h-[40%]"></div>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-primary-container border border-outline-variant rounded-lg p-4 relative overflow-hidden group hover:border-outline transition-colors">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">P50 Latency</div>
+<div class="font-headline-md text-[24px] font-bold text-primary">420<span class="text-[14px] text-on-surface-variant ml-1">ms</span></div>
+<div class="font-mono-data text-[11px] text-on-surface-variant mt-2">Median response</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-primary-container border border-outline-variant rounded-lg p-4 relative overflow-hidden group hover:border-error-container transition-colors">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">P95 Latency</div>
+<div class="font-headline-md text-[24px] font-bold text-error">850<span class="text-[14px] text-on-surface-variant ml-1">ms</span></div>
+<div class="font-mono-data text-[11px] text-error mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">warning</span> High tail latency
+                </div>
+</div>
+<!-- Stat Card 5 -->
+<div class="bg-primary-container border border-outline-variant rounded-lg p-4 relative overflow-hidden group hover:border-outline transition-colors">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Jitter</div>
+<div class="font-headline-md text-[24px] font-bold text-primary">45<span class="text-[14px] text-on-surface-variant ml-1">ms</span></div>
+<div class="font-mono-data text-[11px] text-on-surface-variant mt-2">Variance is stable</div>
+</div>
+</div>
+<!-- Main Chart Section (Bento wide) -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-6 mb-8 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Latency History &amp; Route Integrity</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Real-time telemetry showing successful chunks, failures, and latency spikes.</p>
+</div>
+<!-- Time Toggles -->
+<div class="flex bg-background border border-outline-variant rounded-DEFAULT p-1">
+<button class="px-3 py-1 text-xs font-mono-data rounded-sm text-on-surface-variant hover:text-primary transition-colors">50x</button>
+<button class="px-3 py-1 text-xs font-mono-data rounded-sm bg-surface-container-high text-primary shadow-sm border border-outline-variant">1h</button>
+<button class="px-3 py-1 text-xs font-mono-data rounded-sm text-on-surface-variant hover:text-primary transition-colors">6h</button>
+<button class="px-3 py-1 text-xs font-mono-data rounded-sm text-on-surface-variant hover:text-primary transition-colors">24h</button>
+<button class="px-3 py-1 text-xs font-mono-data rounded-sm text-on-surface-variant hover:text-primary transition-colors">7d</button>
+</div>
+</div>
+<!-- Chart Visualization Area (CSS Generated high-tension look) -->
+<div class="relative h-64 w-full border-b border-l border-outline-variant flex items-end pt-4 pr-2">
+<!-- Y-Axis Labels -->
+<div class="absolute left-0 top-0 h-full flex flex-col justify-between -ml-8 pb-4 text-[10px] font-mono-data text-on-surface-variant text-right w-6">
+<span>1s</span>
+<span>500</span>
+<span>0</span>
+</div>
+<!-- Horizontal Grid Lines -->
+<div class="absolute left-0 top-0 w-full h-full flex flex-col justify-between pointer-events-none">
+<div class="w-full border-t border-outline border-opacity-10 border-dashed"></div>
+<div class="w-full border-t border-outline border-opacity-10 border-dashed"></div>
+<div class="w-full border-t border-outline border-opacity-10 border-dashed"></div>
+</div>
+<!-- Simulated Data Points (Flex layout to look like an area/bar chart) -->
+<div class="flex w-full h-full items-end justify-between gap-[2px] px-2 relative z-10">
+<!-- Generating a mix of stable, high, and error bars -->
+<!-- Pattern logic: mostly green low bars, occasional yellow/orange spikes, red failure crosses -->
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 30%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 32%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 28%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 35%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 40%"></div>
+<!-- Spike -->
+<div class="w-full bg-tertiary opacity-70 hover:opacity-100 transition-opacity" style="height: 85%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 42%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 38%"></div>
+<!-- Error marker simulation (zero height bar + floating X) -->
+<div class="w-full h-full relative group">
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-error text-[10px] font-bold group-hover:scale-150 transition-transform cursor-pointer">X</div>
+</div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 20%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 25%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 30%"></div>
+<!-- Another spike -->
+<div class="w-full bg-tertiary opacity-70 hover:opacity-100 transition-opacity" style="height: 90%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 45%"></div>
+<div class="w-full bg-secondary opacity-40 hover:opacity-100 transition-opacity" style="height: 40%"></div>
+<div class="w-full bg-secondary opacity-80 hover:opacity-100 transition-opacity" style="height: 42%"></div> <!-- Current -->
+</div>
+</div>
+<!-- Chart Legend -->
+<div class="flex items-center gap-6 mt-4 font-mono-data text-[11px] text-on-surface-variant">
+<div class="flex items-center gap-2"><div class="w-2 h-2 bg-secondary rounded-full"></div> Success (HTTP 200)</div>
+<div class="flex items-center gap-2"><div class="w-2 h-2 bg-tertiary rounded-sm"></div> Latency Peak (&gt;800ms)</div>
+<div class="flex items-center gap-2"><div class="text-error font-bold leading-none">X</div> Timeout / Failure</div>
+</div>
+</div>
+<!-- Lower Section: Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-density-comfortable">
+<!-- Left Column (4 cols) -->
+<div class="lg:col-span-4 space-y-density-comfortable">
+<!-- Last Detection Detail -->
+<div class="bg-primary-container border border-outline-variant rounded-lg p-5">
+<h4 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2 mb-4 flex items-center justify-between">
+                        Last Detection Detail
+                        <span class="text-secondary text-[10px] flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> 2m ago</span>
+</h4>
+<div class="space-y-3 font-mono-data text-mono-data">
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">TTFT</span>
+<span class="text-primary">310ms</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">First Chunk</span>
+<span class="text-primary">315ms</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Total Time</span>
+<span class="text-primary">840ms</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">HTTP Code</span>
+<span class="text-secondary bg-secondary-container px-1.5 py-0.5 rounded-sm">200 OK</span>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant border-dashed">
+<div class="text-[10px] text-on-surface-variant mb-1 uppercase tracking-wider">Return Preview</div>
+<div class="bg-background border border-outline p-2 rounded-DEFAULT text-[11px] font-mono-data text-primary line-clamp-3 overflow-hidden text-ellipsis">
+                            {"id":"chatcmpl-8x...","object":"chat.completion.chunk","created":1709...}
+                        </div>
+</div>
+</div>
+<!-- OpenClash Link -->
+<div class="bg-primary-container border border-outline-variant rounded-lg p-5 relative overflow-hidden">
+<!-- Subtle background logo -->
+<span class="material-symbols-outlined absolute -right-6 -bottom-6 text-[120px] text-on-surface-variant opacity-5 pointer-events-none">cable</span>
+<h4 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">route</span> Routing Details
+                    </h4>
+<div class="space-y-3 font-mono-data text-mono-data relative z-10">
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Route Hit</span>
+<span class="text-primary bg-surface-container-high px-1.5 py-0.5 rounded-sm">Proxy-Group-A</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Rule Match</span>
+<span class="text-primary">DOMAIN-SUFFIX,openai.com</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">DNS Mode</span>
+<span class="text-primary">Fake-IP</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">Remote IP</span>
+<span class="text-tertiary">104.18.2.161</span>
+</div>
+</div>
+<button class="mt-4 w-full bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant text-on-surface font-body-sm py-1.5 rounded-DEFAULT transition-colors flex items-center justify-center gap-2">
+                        Open in OpenClash <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</button>
+</div>
+<!-- Config/Notes -->
+<div class="bg-primary-container border border-outline-variant rounded-lg p-5">
+<h4 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">tune</span> Config Override
+                    </h4>
+<div class="space-y-4">
+<div>
+<label class="block font-label-caps text-on-surface-variant mb-1">Override Model</label>
+<input class="w-full bg-background border border-outline-variant rounded-DEFAULT px-3 py-1.5 text-mono-data font-mono-data text-primary focus:border-tertiary focus:ring-1 focus:ring-tertiary outline-none transition-all" type="text" value="gpt-4-0125-preview"/>
+</div>
+<div>
+<label class="block font-label-caps text-on-surface-variant mb-1">Timeout (ms)</label>
+<input class="w-full bg-background border border-outline-variant rounded-DEFAULT px-3 py-1.5 text-mono-data font-mono-data text-primary focus:border-tertiary focus:ring-1 focus:ring-tertiary outline-none transition-all" type="number" value="15000"/>
+</div>
+<div>
+<label class="block font-label-caps text-on-surface-variant mb-1">Operator Notes</label>
+<textarea class="w-full bg-background border border-outline-variant rounded-DEFAULT px-3 py-1.5 text-body-sm font-body-sm text-primary focus:border-tertiary focus:ring-1 focus:ring-tertiary outline-none transition-all resize-none" rows="2">Stable route. Do not modify DNS settings without testing.</textarea>
+</div>
+<button class="w-full bg-tertiary text-on-tertiary font-headline-md text-sm py-2 rounded-DEFAULT hover:opacity-90 transition-opacity">
+                            Save Configuration
+                        </button>
+</div>
+</div>
+</div>
+<!-- Right Column (8 cols) -->
+<div class="lg:col-span-8">
+<!-- Recent Error Events Table -->
+<div class="bg-primary-container border border-outline-variant rounded-lg h-full flex flex-col">
+<div class="p-5 border-b border-outline-variant flex justify-between items-center bg-surface-container-low rounded-t-lg">
+<h4 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-error">error</span> Recent Failure Logs
+                        </h4>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+<div class="flex-1 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr>
+<th class="font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant px-5 py-3 whitespace-nowrap bg-background bg-opacity-50">Timestamp</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant px-5 py-3 whitespace-nowrap bg-background bg-opacity-50">Error Code</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant px-5 py-3 bg-background bg-opacity-50 w-full">Message / Snippet</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant px-5 py-3 whitespace-nowrap bg-background bg-opacity-50 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-mono-data text-mono-data text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-high transition-colors group cursor-pointer border-b border-outline-variant border-opacity-30">
+<td class="px-5 py-3 whitespace-nowrap text-on-surface-variant group-hover:text-primary">2023-10-27 14:32:01</td>
+<td class="px-5 py-3 whitespace-nowrap"><span class="text-error bg-error-container px-1.5 py-0.5 rounded-sm">502 Bad Gateway</span></td>
+<td class="px-5 py-3 text-on-surface-variant group-hover:text-primary truncate max-w-[200px]">upstream connect error or disconnect/reset before headers</td>
+<td class="px-5 py-3 text-right">
+<button class="text-tertiary hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-high transition-colors group cursor-pointer border-b border-outline-variant border-opacity-30">
+<td class="px-5 py-3 whitespace-nowrap text-on-surface-variant group-hover:text-primary">2023-10-27 11:15:44</td>
+<td class="px-5 py-3 whitespace-nowrap"><span class="text-error bg-error-container px-1.5 py-0.5 rounded-sm">TIMEOUT</span></td>
+<td class="px-5 py-3 text-on-surface-variant group-hover:text-primary truncate max-w-[200px]">Context deadline exceeded (15000ms)</td>
+<td class="px-5 py-3 text-right">
+<button class="text-tertiary hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-high transition-colors group cursor-pointer border-b border-outline-variant border-opacity-30">
+<td class="px-5 py-3 whitespace-nowrap text-on-surface-variant group-hover:text-primary">2023-10-26 09:01:12</td>
+<td class="px-5 py-3 whitespace-nowrap"><span class="text-[#f59e0b] bg-[#f59e0b] bg-opacity-20 px-1.5 py-0.5 rounded-sm">429 Too Many Req</span></td>
+<td class="px-5 py-3 text-on-surface-variant group-hover:text-primary truncate max-w-[200px]">Rate limit reached for model gpt-4 in organization...</td>
+<td class="px-5 py-3 text-right">
+<button class="text-tertiary hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-high transition-colors group cursor-pointer border-b border-outline-variant border-opacity-30">
+<td class="px-5 py-3 whitespace-nowrap text-on-surface-variant group-hover:text-primary">2023-10-25 22:45:00</td>
+<td class="px-5 py-3 whitespace-nowrap"><span class="text-error bg-error-container px-1.5 py-0.5 rounded-sm">500 Internal Error</span></td>
+<td class="px-5 py-3 text-on-surface-variant group-hover:text-primary truncate max-w-[200px]">The server had an error while processing your request.</td>
+<td class="px-5 py-3 text-right">
+<button class="text-tertiary hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+</td>
+</tr>
+<!-- Empty State padding -->
+<tr>
+<td class="px-5 py-8 text-center text-on-surface-variant font-body-sm italic opacity-50" colspan="4">
+                                        End of recent logs (7 days)
+                                    </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

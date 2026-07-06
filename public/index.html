@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clash AI Probe · 中转站健康监测</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <input class="ui-state" type="radio" name="window-range" id="window-15m" checked />
+  <input class="ui-state" type="radio" name="window-range" id="window-1h" />
+  <input class="ui-state" type="radio" name="window-range" id="window-6h" />
+  <input class="ui-state" type="radio" name="workspace-tab" id="tab-services" checked />
+  <input class="ui-state" type="radio" name="workspace-tab" id="tab-traces" />
+  <input class="ui-state" type="radio" name="workspace-tab" id="tab-logs" />
+  <input class="ui-state" type="radio" name="workspace-tab" id="tab-settings" />
+  <input class="ui-state" type="radio" name="service-status" id="service-all" checked />
+  <input class="ui-state" type="radio" name="service-status" id="service-healthy" />
+  <input class="ui-state" type="radio" name="service-status" id="service-warn" />
+  <input class="ui-state" type="radio" name="service-status" id="service-critical" />
+  <input class="ui-state" type="radio" name="severity-level" id="severity-all" checked />
+  <input class="ui-state" type="radio" name="severity-level" id="severity-critical" />
+  <input class="ui-state" type="radio" name="severity-level" id="severity-warn" />
+  <input class="ui-state" type="radio" name="severity-level" id="severity-info" />
+
+  <header class="app-header" data-od-id="header-shell">
+    <div class="header-inner">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <div class="brand-topline">
+            <div class="brand-wordmark">
+              <span class="en">CLASH AI PROBE</span>
+              <span class="cn">中转站健康监测</span>
+            </div>
+            <span class="status-pill"><span class="status-dot"></span><span id="runtime-status">读取中</span></span>
+          </div>
+          <div class="brand-sub" id="brand-sub">本地中转站延迟与链路监测台</div>
+        </div>
+      </div>
+      <div class="chip-row">
+        <label class="chip window-chip" for="window-15m">近 15 分钟</label>
+        <label class="chip window-chip" for="window-1h">近 1 小时</label>
+        <label class="chip window-chip" for="window-6h">近 6 小时</label>
+        <button class="chip" id="refresh-btn" type="button"><span class="chip-glyph">↻</span>刷新</button>
+        <button class="chip is-accent" id="run-all-btn" type="button"><span class="chip-glyph">▶</span>全部立即检测</button>
+        <span class="ghost-chip" id="updated-at">最近更新 --</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell" data-od-id="dashboard-shell">
+    <div class="main-column">
+      <section class="card overview-card" data-od-id="overview-card">
+        <div class="eyebrow">OVERVIEW · 实时概览</div>
+        <div class="overview-head">
+          <div>
+            <h1 class="overview-title" id="overview-title">读取中…</h1>
+            <p class="overview-sub" id="overview-sub">正在读取中转站状态。</p>
+          </div>
+          <aside class="focus-card" data-od-id="overview-focus-card">
+            <div class="focus-label">重点关注</div>
+            <div class="focus-title" id="focus-title">--</div>
+            <div class="card-sub" id="focus-desc">--</div>
+            <div class="focus-meta">
+              <div>
+                <div class="focus-meta-label">Base URL</div>
+                <div class="focus-meta-value" id="focus-meta-1">--</div>
+              </div>
+              <div>
+                <div class="focus-meta-label">建议动作</div>
+                <div class="focus-meta-value" id="focus-meta-2">--</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="overview-kpis" id="overview-kpis"></div>
+
+        <div class="trend-shell" data-od-id="overview-trend">
+          <div class="trend-topline">
+            <div class="trend-title" id="trend-title">车队延迟趋势</div>
+            <div class="trend-note" id="trend-note">--</div>
+          </div>
+          <svg class="trend-chart" viewBox="0 0 840 178" preserveAspectRatio="none" aria-label="延迟趋势图">
+            <defs>
+              <linearGradient id="latencyArea" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="rgba(202,167,216,0.34)"></stop>
+                <stop offset="100%" stop-color="rgba(202,167,216,0)"></stop>
+              </linearGradient>
+            </defs>
+            <g stroke="rgba(240,234,244,0.08)" stroke-width="1">
+              <line x1="0" y1="28" x2="840" y2="28"></line>
+              <line x1="0" y1="74" x2="840" y2="74"></line>
+              <line x1="0" y1="120" x2="840" y2="120"></line>
+              <line x1="0" y1="166" x2="840" y2="166"></line>
+            </g>
+            <polygon id="trend-area" fill="url(#latencyArea)" points=""></polygon>
+            <polyline id="trend-line" fill="none" stroke="rgba(202,167,216,0.94)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points=""></polyline>
+            <circle id="trend-marker" cx="0" cy="89" r="5" fill="#d3b46a"></circle>
+            <circle id="trend-marker-ring" cx="0" cy="89" r="11" fill="none" stroke="rgba(211,180,106,0.36)"></circle>
+          </svg>
+          <div class="trend-axis" id="trend-axis"></div>
+        </div>
+      </section>
+
+      <section class="kpi-grid" id="kpi-grid" data-od-id="kpi-grid"></section>
+
+      <section class="state-strip" id="state-strip" data-od-id="state-strip"></section>
+
+      <section class="card workspace-card" data-od-id="workspace-card">
+        <div class="card-head">
+          <div>
+            <h2 class="card-title">实时工作区</h2>
+            <div class="card-sub">节点健康、链路耗时、探测日志与配置共用同一套上下文。</div>
+          </div>
+          <div class="tab-row" aria-label="工作区切换">
+            <label class="tab-btn" for="tab-services" data-od-id="tab-services">节点健康</label>
+            <label class="tab-btn" for="tab-traces" data-od-id="tab-traces">链路分析</label>
+            <label class="tab-btn" for="tab-logs" data-od-id="tab-logs">探测日志</label>
+            <label class="tab-btn" for="tab-settings" data-od-id="tab-settings">配置</label>
+          </div>
+        </div>
+
+        <section class="panel" id="panel-services" data-panel="services">
+          <div class="filter-row">
+            <label class="chip status-filter" for="service-all">全部节点</label>
+            <label class="chip status-filter" for="service-healthy">稳定</label>
+            <label class="chip status-filter" for="service-warn">关注</label>
+            <label class="chip status-filter" for="service-critical">异常</label>
+            <span class="search-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input id="site-search" type="search" placeholder="搜索节点名 / Base URL / 模型" autocomplete="off" />
+            </span>
+          </div>
+
+          <div class="service-grid" id="service-grid"></div>
+
+          <div class="table-card compact" data-od-id="hotspot-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>节点</th>
+                  <th>成功率</th>
+                  <th>P95</th>
+                  <th>最近检测</th>
+                </tr>
+              </thead>
+              <tbody id="hotspot-rows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-traces" data-panel="traces">
+          <div class="trace-toolbar" id="trace-toolbar"></div>
+          <div class="trace-hero">
+            <article class="trace-summary" id="trace-summary" data-od-id="trace-summary-card">
+              <div class="eyebrow">TRACE · 链路耗时</div>
+              <div class="service-name" style="margin-top: 10px;" id="trace-title">--</div>
+              <div class="card-sub" id="trace-subtitle">选择上方节点查看最近一次探测的阶段耗时。</div>
+              <svg class="trace-chart" viewBox="0 0 680 184" preserveAspectRatio="none" aria-label="链路耗时趋势图">
+                <defs>
+                  <linearGradient id="traceArea" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(211,180,106,0.28)"></stop>
+                    <stop offset="100%" stop-color="rgba(211,180,106,0)"></stop>
+                  </linearGradient>
+                </defs>
+                <g stroke="rgba(240,234,244,0.08)" stroke-width="1">
+                  <line x1="0" y1="24" x2="680" y2="24"></line>
+                  <line x1="0" y1="72" x2="680" y2="72"></line>
+                  <line x1="0" y1="120" x2="680" y2="120"></line>
+                  <line x1="0" y1="168" x2="680" y2="168"></line>
+                </g>
+                <polygon id="trace-area" fill="url(#traceArea)" points=""></polygon>
+                <polyline id="trace-line" fill="none" stroke="#d3b46a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points=""></polyline>
+                <circle id="trace-marker" cx="0" cy="92" r="4.5" fill="#d3b46a"></circle>
+              </svg>
+              <div class="trace-meta-grid" id="trace-meta-grid"></div>
+            </article>
+
+            <article class="trace-breakdown" data-od-id="trace-breakdown-card">
+              <div class="card-title">阶段拆解</div>
+              <div class="card-sub">按最近一次成功探测的关键节点耗时拆分。</div>
+              <div class="trace-breakdown-list" id="trace-breakdown-list" style="margin-top: 14px;"></div>
+              <div class="rail-note" id="trace-note">--</div>
+            </article>
+          </div>
+
+          <div class="table-card compact" data-od-id="slow-trace-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>端点</th>
+                  <th>节点</th>
+                  <th>时长</th>
+                  <th>结果</th>
+                  <th>发生时间</th>
+                </tr>
+              </thead>
+              <tbody id="slow-trace-rows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-logs" data-panel="logs">
+          <div class="log-toolbar">
+            <div class="card-sub">按级别筛选最近探测记录，与右侧告警联动。失败=严重 / 慢=警告 / 正常=信息。</div>
+            <div class="filter-row">
+              <label class="chip severity-filter" for="severity-all">全部级别</label>
+              <label class="chip severity-filter" for="severity-critical">严重</label>
+              <label class="chip severity-filter" for="severity-warn">警告</label>
+              <label class="chip severity-filter" for="severity-info">信息</label>
+            </div>
+          </div>
+
+          <div class="table-card compact" data-od-id="log-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>时间</th>
+                  <th>级别</th>
+                  <th>节点</th>
+                  <th>端点</th>
+                  <th>远端 IP</th>
+                  <th>消息</th>
+                </tr>
+              </thead>
+              <tbody id="logRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-settings" data-panel="settings">
+          <div class="card-head" style="margin-top: 6px;">
+            <div>
+              <h2 class="card-title">全局配置</h2>
+              <div class="card-sub">用于所有未单独覆盖的节点：默认 prompt、超时、检测频率与 OpenClash 控制器。</div>
+            </div>
+          </div>
+
+          <form id="settings-form">
+            <div class="settings-grid">
+              <div class="field">
+                <span>自动定时检测</span>
+                <div class="toggle-line">
+                  <button type="button" class="switch" id="auto-enabled" role="switch" aria-checked="false"></button>
+                  <span class="field-hint" id="auto-enabled-hint">当前只接受手动检测。</span>
+                </div>
+              </div>
+              <div class="field">
+                <span>默认频率（分钟）</span>
+                <input type="number" id="default-frequency-minutes" min="1" step="1" />
+              </div>
+              <div class="field">
+                <span>Controller URL</span>
+                <input type="text" id="controller-url" placeholder="http://192.168.100.1:9090" />
+              </div>
+              <div class="field">
+                <span>默认 Timeout（ms）</span>
+                <input type="number" id="default-timeout-ms" min="1000" step="1000" />
+              </div>
+              <div class="field full">
+                <span>默认 Prompt</span>
+                <input type="text" id="default-prompt" placeholder="Say ok" />
+              </div>
+              <div class="field full">
+                <div class="secret-row">
+                  <span>Controller Secret</span>
+                  <button type="button" class="link-button" id="clear-controller-secret">清除已保存 Secret</button>
+                </div>
+                <input type="password" id="controller-secret" placeholder="留空则保持已保存密钥" />
+                <small id="controller-secret-hint">当前未检测到已保存 Secret。</small>
+              </div>
+            </div>
+
+            <div class="settings-actions">
+              <button type="submit" class="btn btn-primary"><span class="glyph">✓</span>保存全局设置</button>
+            </div>
+          </form>
+
+          <div class="card-head" style="margin-top: 26px;">
+            <div>
+              <h2 class="card-title">中转站管理</h2>
+              <div class="card-sub" id="settings-site-summary">读取中…</div>
+            </div>
+            <div class="tab-row">
+              <button type="button" class="btn btn-primary" id="add-site-btn"><span class="glyph">＋</span>新增中转站</button>
+            </div>
+          </div>
+          <div class="site-manage-list" id="site-manage-list"></div>
+        </section>
+      </section>
+    </div>
+
+    <aside class="rail-column">
+      <section class="card rail-card" data-od-id="alerts-card">
+        <div class="card-head">
+          <div>
+            <h2 class="card-title">活跃告警</h2>
+            <div class="card-sub">异常与波动节点，按级别联动日志面板。</div>
+          </div>
+        </div>
+        <div class="alert-list" id="alertList"></div>
+        <div class="rail-note" id="alert-note">--</div>
+      </section>
+
+      <section class="card rail-card" data-od-id="events-card">
+        <div class="card-head">
+          <div>
+            <h2 class="card-title">探测时间线</h2>
+            <div class="card-sub">最近若干次探测按时间排列。</div>
+          </div>
+        </div>
+        <div class="event-list" id="event-list"></div>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="footer" id="footer" data-od-id="dashboard-footer"></footer>
+
+  <div id="modal-root"></div>
+  <div id="toast-root" class="toast-root"></div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+services:
+  clash-ai-probe:
+    build:
+      context: .
+    container_name: ${CONTAINER_NAME:-clash-ai-probe}
+    ports:
+      - "${APP_PORT:-3010}:${PORT:-3000}"
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      HOST: "0.0.0.0"
+      PORT: ${PORT:-3000}
+      CLASH_CONTROLLER: ${CLASH_CONTROLLER:-http://192.168.100.1:9090}
+      CLASH_SECRET: ${CLASH_SECRET:-}
+    volumes:
+      - ${DATA_DIR:-./data}:/app/data
+    restart: unless-stopped

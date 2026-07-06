@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Overview - ProxySentinel AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#5b5e66",
+                        "surface-variant": "#353435",
+                        "on-tertiary-fixed": "#07006c",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-tertiary-container": "#686cf7",
+                        "inverse-surface": "#e5e2e2",
+                        "on-secondary-fixed": "#002113",
+                        "on-surface-variant": "#c6c6cb",
+                        "tertiary-fixed": "#e1e0ff",
+                        "on-primary-container": "#797d85",
+                        "surface-container-lowest": "#0e0e0f",
+                        "primary-container": "#0d1117",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "surface-container-high": "#2a2a2a",
+                        "on-secondary-container": "#00311f",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#353435",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#dfe2eb",
+                        "on-tertiary": "#1000a9",
+                        "surface-container": "#201f20",
+                        "background": "#131314",
+                        "on-surface": "#e5e2e2",
+                        "surface-bright": "#3a3939",
+                        "surface-container-low": "#1c1b1c",
+                        "primary": "#c3c6cf",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-background": "#e5e2e2",
+                        "primary-fixed-dim": "#c3c6cf",
+                        "on-primary": "#2d3137",
+                        "on-primary-fixed-variant": "#43474e",
+                        "outline-variant": "#45474b",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-tint": "#c3c6cf",
+                        "outline": "#8f9095",
+                        "on-primary-fixed": "#181c22",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "surface-dim": "#131314",
+                        "secondary-container": "#00a572",
+                        "tertiary": "#c0c1ff",
+                        "tertiary-container": "#03004c",
+                        "on-error": "#690005",
+                        "surface": "#131314",
+                        "inverse-on-surface": "#313031",
+                        "secondary": "#4edea3",
+                        "on-secondary": "#003824"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "density-compact": "4px",
+                        "container-padding": "24px",
+                        "sidebar-width": "240px",
+                        "density-comfortable": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "mono-data": ["JetBrains Mono"],
+                        "label-caps": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "mono-data": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "label-caps": ["11px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0D1117; color: #e5e2e2; }
+        .chart-grid { stroke: #30363D; stroke-width: 0.5; stroke-dasharray: 2 2; }
+        .chart-line { stroke: #4edea3; stroke-width: 1.5; fill: none; }
+        .chart-line-warn { stroke: #ffb4ab; stroke-width: 1.5; fill: none; }
+        .heartbeat { animation: pulse-opacity 2s infinite ease-in-out; }
+        @keyframes pulse-opacity {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .table-row-hover:hover { background-color: #1C2128; }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased overflow-x-hidden min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-background border-b border-outline-variant dark:border-outline-variant">
+<div class="flex items-center gap-6">
+<span class="font-display-lg text-display-lg font-bold text-secondary dark:text-secondary">ProxySentinel AI</span>
+<div class="flex items-center bg-surface-container-low rounded-DEFAULT border border-outline-variant px-3 py-1.5 focus-within:ring-1 focus-within:ring-[#6366F1]">
+<span class="material-symbols-outlined text-on-surface-variant mr-2" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="bg-transparent border-none text-on-surface focus:ring-0 p-0 w-48 text-body-sm font-body-sm placeholder-on-surface-variant outline-none" placeholder="Search..." type="text"/>
+</div>
+</div>
+<nav class="flex gap-6 items-center">
+<a class="text-secondary dark:text-secondary border-b-2 border-secondary pb-1 font-headline-md text-headline-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary font-headline-md text-headline-md" href="#">Logs</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary font-headline-md text-headline-md" href="#">Nodes</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary font-headline-md text-headline-md" href="#">Config</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="bg-[#6366F1] text-[#ffffff] px-4 py-2 rounded-DEFAULT font-body-md hover:bg-opacity-90 transition-colors">Run Scan</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications_active</span></button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface text-sm">person</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-sidebar-width z-40 flex flex-col py-4 bg-surface-container-lowest dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline-variant">
+<div class="px-4 mb-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-[#161B22] border border-outline-variant flex items-center justify-center relative">
+<span class="material-symbols-outlined text-secondary heartbeat" style="font-variation-settings: 'FILL' 1;">monitor_heart</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-secondary">Core Engine</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">V2.4.0 Active</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">router</span>
+<span class="font-label-caps text-label-caps">Proxies</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">analytics</span>
+<span class="font-label-caps text-label-caps">Analyzers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">timer</span>
+<span class="font-label-caps text-label-caps">Scheduler</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full bg-[#6366F1] text-[#ffffff] py-2 rounded-DEFAULT font-body-md flex items-center justify-center gap-2 hover:bg-opacity-90 transition-colors mb-4">
+<span class="material-symbols-outlined text-sm">add</span> New Instance
+            </button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">help</span>
+<span class="font-label-caps text-label-caps">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">contact_support</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-sidebar-width pt-16 min-h-screen bg-primary-container p-container-padding flex flex-col gap-container-padding">
+<!-- Controls & Status Bar -->
+<div class="bg-[#161B22] border border-[#30363D] rounded-DEFAULT p-4 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-6">
+<label class="flex items-center gap-2 cursor-pointer">
+<div class="relative">
+<input checked="" class="sr-only" type="checkbox"/>
+<div class="block bg-secondary w-10 h-6 rounded-full opacity-50"></div>
+<div class="dot absolute left-1 top-1 bg-secondary w-4 h-4 rounded-full transition transform translate-x-4"></div>
+</div>
+<span class="font-body-md text-on-surface">Auto-Detection</span>
+</label>
+<div class="flex items-center gap-2 border-l border-[#30363D] pl-6">
+<span class="font-body-sm text-on-surface-variant">Default Frequency:</span>
+<select class="bg-surface-container-low border border-outline-variant text-on-surface text-body-sm rounded-DEFAULT px-2 py-1 focus:ring-1 focus:ring-[#6366F1] outline-none">
+<option>5 mins</option>
+<option>10 mins</option>
+<option>15 mins</option>
+</select>
+</div>
+<button class="text-on-surface-variant hover:text-secondary transition-colors" title="Refresh">
+<span class="material-symbols-outlined text-md" style="font-variation-settings: 'FILL' 0;">refresh</span>
+</button>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right flex flex-col border-r border-[#30363D] pr-4">
+<span class="font-mono-data text-mono-data text-secondary flex items-center gap-1 justify-end">
+<span class="w-2 h-2 rounded-full bg-secondary heartbeat"></span> Status: Running
+                    </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Last Global Check: 2023-10-27 14:30:05</span>
+</div>
+<button class="bg-[#21262D] border border-[#30363D] text-on-surface px-4 py-2 rounded-DEFAULT font-body-md hover:bg-surface-container-high transition-colors">Run All Now</button>
+<button class="bg-[#6366F1] text-[#ffffff] px-4 py-2 rounded-DEFAULT font-body-md hover:bg-opacity-90 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> Add Proxy
+                </button>
+</div>
+</div>
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-density-comfortable">
+<div class="bg-[#161B22] border border-[#30363D] rounded-DEFAULT p-4 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">Total</span>
+<span class="font-display-lg text-display-lg text-on-surface">24</span>
+</div>
+<div class="bg-[#161B22] border border-[#30363D] border-t-2 border-t-secondary rounded-DEFAULT p-4 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">Stable</span>
+<span class="font-display-lg text-display-lg text-secondary">18</span>
+</div>
+<div class="bg-[#161B22] border border-[#30363D] border-t-2 border-t-[#eab308] rounded-DEFAULT p-4 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">Fluctuating</span>
+<span class="font-display-lg text-display-lg text-[#eab308]">3</span>
+</div>
+<div class="bg-[#161B22] border border-[#30363D] border-t-2 border-t-error rounded-DEFAULT p-4 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">Unavailable</span>
+<span class="font-display-lg text-display-lg text-error">1</span>
+</div>
+<div class="bg-[#161B22] border border-[#30363D] border-t-2 border-t-[#3b82f6] rounded-DEFAULT p-4 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">Testing</span>
+<span class="font-display-lg text-display-lg text-[#3b82f6]">2</span>
+</div>
+<div class="bg-[#161B22] border border-[#30363D] border-t-2 border-t-outline rounded-DEFAULT p-4 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">Paused</span>
+<span class="font-display-lg text-display-lg text-outline">0</span>
+</div>
+</div>
+<!-- Proxy List Table -->
+<div class="bg-[#161B22] border border-[#30363D] rounded-DEFAULT flex-1 flex flex-col overflow-hidden">
+<div class="p-4 border-b border-[#30363D] flex justify-between items-center bg-[#21262D]">
+<h3 class="font-headline-md text-headline-md text-on-surface">Active Proxies</h3>
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:text-on-surface px-2 py-1 rounded border border-transparent hover:border-[#30363D] transition-all"><span class="material-symbols-outlined text-sm">filter_list</span></button>
+<button class="text-on-surface-variant hover:text-on-surface px-2 py-1 rounded border border-transparent hover:border-[#30363D] transition-all"><span class="material-symbols-outlined text-sm">download</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[#30363D] bg-[#0D1117]">
+<th class="p-density-comfortable font-label-caps text-label-caps text-on-surface-variant">#</th>
+<th class="p-density-comfortable font-label-caps text-label-caps text-on-surface-variant cursor-pointer group hover:text-on-surface">Name <span class="material-symbols-outlined text-[10px] inline-block align-middle opacity-0 group-hover:opacity-100 transition-opacity">arrow_downward</span></th>
+<th class="p-density-comfortable font-label-caps text-label-caps text-on-surface-variant">Base URL</th>
+<th class="p-density-comfortable font-label-caps text-label-caps text-on-surface-variant">Status</th>
+<th class="p-density-comfortable font-label-caps text-label-caps text-on-surface-variant text-right cursor-pointer group hover:text-on-surface">Success % <span class="material-symbols-outlined text-[10px] inline-block align-middle opacity-0 group-hover:opacity-100 transition-opacity">arrow_downward</span></th>
+<th class="p-density-comfortable font-label-caps text-label-caps text-on-surface-variant text-right cursor-pointer group hover:text-on-surface">Avg Lat (ms) <span class="material-symbols-outlined text-[10px] inline-block align-middle opacity-0 group-hover:opacity-100 transition-opacity">arrow_downward</span></th>
+<th class="p-density-comfortable font-label-caps text-label-caps text-on-surface-variant text-right">P95 (ms)</th>
+<th class="p-density-comfortable font-label-caps text-label-caps text-on-surface-variant w-32">History (30m)</th>
+<th class="p-density-comfortable font-label-caps text-label-caps text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-mono-data text-mono-data">
+<!-- Row 1 Stable -->
+<tr class="border-b border-[#30363D] table-row-hover transition-colors">
+<td class="p-density-comfortable text-on-surface-variant">01</td>
+<td class="p-density-comfortable text-on-surface">US-East-Primary</td>
+<td class="p-density-comfortable text-on-surface-variant">https://use1.proxy...</td>
+<td class="p-density-comfortable">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#003824] text-secondary border border-secondary border-opacity-20">Stable</span>
+</td>
+<td class="p-density-comfortable text-right text-secondary">99.8%</td>
+<td class="p-density-comfortable text-right text-on-surface">142</td>
+<td class="p-density-comfortable text-right text-on-surface-variant">185</td>
+<td class="p-density-comfortable w-32 align-middle">
+<svg height="20" preserveaspectratio="none" viewbox="0 0 100 20" width="100%">
+<polyline class="chart-line" points="0,10 10,12 20,8 30,15 40,9 50,11 60,7 70,12 80,8 90,10 100,9"></polyline>
+</svg>
+</td>
+<td class="p-density-comfortable text-right flex items-center justify-end gap-2">
+<button class="text-on-surface-variant hover:text-secondary" title="Test Now"><span class="material-symbols-outlined text-sm">play_arrow</span></button>
+<button class="text-on-surface-variant hover:text-primary" title="Edit"><span class="material-symbols-outlined text-sm">edit</span></button>
+<button class="text-on-surface-variant hover:text-error" title="Delete"><span class="material-symbols-outlined text-sm">delete</span></button>
+</td>
+</tr>
+<!-- Row 2 Fluctuating -->
+<tr class="border-b border-[#30363D] table-row-hover transition-colors bg-[#131314]">
+<td class="p-density-comfortable text-on-surface-variant">02</td>
+<td class="p-density-comfortable text-on-surface">EU-West-Fallback</td>
+<td class="p-density-comfortable text-on-surface-variant">https://euw2.proxy...</td>
+<td class="p-density-comfortable">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#422006] text-[#eab308] border border-[#eab308] border-opacity-20">Fluctuating</span>
+</td>
+<td class="p-density-comfortable text-right text-[#eab308]">84.2%</td>
+<td class="p-density-comfortable text-right text-on-surface">450</td>
+<td class="p-density-comfortable text-right text-on-surface-variant">820</td>
+<td class="p-density-comfortable w-32 align-middle">
+<svg height="20" preserveaspectratio="none" viewbox="0 0 100 20" width="100%">
+<polyline class="chart-line" points="0,15 10,18 20,10 30,5 40,16 50,19 60,8 70,14 80,5 90,12 100,16" style="stroke: #eab308;"></polyline>
+</svg>
+</td>
+<td class="p-density-comfortable text-right flex items-center justify-end gap-2">
+<button class="text-on-surface-variant hover:text-secondary" title="Test Now"><span class="material-symbols-outlined text-sm">play_arrow</span></button>
+<button class="text-on-surface-variant hover:text-primary" title="Edit"><span class="material-symbols-outlined text-sm">edit</span></button>
+<button class="text-on-surface-variant hover:text-error" title="Delete"><span class="material-symbols-outlined text-sm">delete</span></button>
+</td>
+</tr>
+<!-- Row 3 Error -->
+<tr class="border-b border-[#30363D] table-row-hover transition-colors">
+<td class="p-density-comfortable text-on-surface-variant">03</td>
+<td class="p-density-comfortable text-on-surface">AP-South-Node2</td>
+<td class="p-density-comfortable text-on-surface-variant">https://aps2.proxy...</td>
+<td class="p-density-comfortable">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#690005] text-error border border-error border-opacity-20">Unavailable</span>
+</td>
+<td class="p-density-comfortable text-right text-error">0.0%</td>
+<td class="p-density-comfortable text-right text-on-surface">--</td>
+<td class="p-density-comfortable text-right text-on-surface-variant">--</td>
+<td class="p-density-comfortable w-32 align-middle">
+<svg height="20" preserveaspectratio="none" viewbox="0 0 100 20" width="100%">
+<line class="chart-line-warn" stroke-dasharray="4" x1="0" x2="100" y1="18" y2="18"></line>
+</svg>
+</td>
+<td class="p-density-comfortable text-right flex items-center justify-end gap-2">
+<button class="text-on-surface-variant hover:text-secondary" title="Test Now"><span class="material-symbols-outlined text-sm">play_arrow</span></button>
+<button class="text-on-surface-variant hover:text-primary" title="Edit"><span class="material-symbols-outlined text-sm">edit</span></button>
+<button class="text-on-surface-variant hover:text-error" title="Delete"><span class="material-symbols-outlined text-sm">delete</span></button>
+</td>
+</tr>
+<!-- Row 4 Stable -->
+<tr class="border-b border-[#30363D] table-row-hover transition-colors bg-[#131314]">
+<td class="p-density-comfortable text-on-surface-variant">04</td>
+<td class="p-density-comfortable text-on-surface">US-West-Core</td>
+<td class="p-density-comfortable text-on-surface-variant">https://usw1.proxy...</td>
+<td class="p-density-comfortable">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#003824] text-secondary border border-secondary border-opacity-20">Stable</span>
+</td>
+<td class="p-density-comfortable text-right text-secondary">99.9%</td>
+<td class="p-density-comfortable text-right text-on-surface">85</td>
+<td class="p-density-comfortable text-right text-on-surface-variant">110</td>
+<td class="p-density-comfortable w-32 align-middle">
+<svg height="20" preserveaspectratio="none" viewbox="0 0 100 20" width="100%">
+<polyline class="chart-line" points="0,5 10,7 20,4 30,6 40,5 50,8 60,6 70,5 80,7 90,6 100,5"></polyline>
+</svg>
+</td>
+<td class="p-density-comfortable text-right flex items-center justify-end gap-2">
+<button class="text-on-surface-variant hover:text-secondary" title="Test Now"><span class="material-symbols-outlined text-sm">play_arrow</span></button>
+<button class="text-on-surface-variant hover:text-primary" title="Edit"><span class="material-symbols-outlined text-sm">edit</span></button>
+<button class="text-on-surface-variant hover:text-error" title="Delete"><span class="material-symbols-outlined text-sm">delete</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-[#30363D] flex justify-between items-center text-body-sm text-on-surface-variant bg-[#0D1117]">
+<span>Showing 1 to 4 of 24 entries</span>
+<div class="flex gap-1">
+<button class="px-2 py-1 rounded border border-[#30363D] hover:bg-[#21262D] disabled:opacity-50" disabled="">Prev</button>
+<button class="px-2 py-1 rounded border border-[#30363D] bg-[#21262D] text-on-surface">1</button>
+<button class="px-2 py-1 rounded border border-[#30363D] hover:bg-[#21262D]">2</button>
+<button class="px-2 py-1 rounded border border-[#30363D] hover:bg-[#21262D]">3</button>
+<button class="px-2 py-1 rounded border border-[#30363D] hover:bg-[#21262D]">Next</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>
